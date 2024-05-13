@@ -15,13 +15,12 @@ const login_slice=createSlice({
     name:"login",
     initialState,
     reducers:{
-        "toggle":(state)=>{
-
+        "toggle_Login":(state)=>{
             state.openSignIn=!(state.openSignIn) 
         }
     }
 })
 
-export const {toggle}=login_slice.actions
+export const {toggle_Login}=login_slice.actions
 
-export default login_slice.reducer 
+export default login_slice.reducer ;

@@ -8,7 +8,7 @@ export default async function NavBar() {
 
     return (
         <>  
-            <div className="relative ">
+            <div className="fized z-[5] top-0 h-[5rem]  bg-black  ">
                <Logo/>
             <SignUpButton session={session?.user}/>
             </div>

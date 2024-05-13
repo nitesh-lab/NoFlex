@@ -49,7 +49,7 @@ export default function MenuNavigator() {
   
 
 
-    return !isHide && <div className=" flex gap-[1rem] w-[70%]  sm:w-[65%] md:w-[60%]  lg:w-[50%] fixed top-[0] px-[20px]
+    return !isHide && <div className="  flex gap-[1rem] w-[70%]  sm:w-[65%] md:w-[60%]  lg:w-[50%] fixed top-[0] px-[20px]
     py-[10px] text-[1rem] text-white z-[10] cursor-pointer 
      right-0 rounded-[10px] sm:mr-[25px]">
         
