@@ -59,12 +59,17 @@ export default function Movie({MovieId}:{MovieId:number}) {
 
     async function getTrailer() {
       if(moviedata &&  "title" in moviedata){
-        movieTrailer(movie.name || movie.title || 'Father of the Bride')
-      }
-    }
-
+        movieTrailer(null ,{ tmdbId: moviedata.id })
+        .then((url)=>{
+          console.log("url is "+url);
+          const urlParams=new URLSearchParams(new URL(url||"").search);
+          console.log("urlParamsn"+urlParams);
+        })
+        .catch((error)=> console.log(error));
+}
+}
     getTrailer()
-  },[])
+  },[moviedata])
 
   useEffect(()=>{
     async function GetData() {
