@@ -6,6 +6,8 @@ import { ArrowBigDownDash, PlayIcon, ShoppingBasketIcon } from 'lucide-react'
 import MovieDetail from './MovieDetail'
 import axios from 'axios'
 import movieTrailer from 'movie-trailer'
+import { url } from 'inspector'
+import ReactPlayer from "react-player";
 
 const opts = {
   height: '450',
@@ -54,7 +56,7 @@ export type MovieInfo = {
 export default function Movie({MovieId}:{MovieId:number}) {
 
   const [moviedata,setMovieData]=useState<MovieInfo>();
-
+  const [trailer,setTrailer]=useState<string>("");
   useEffect(()=>{
 
     async function getTrailer() {
@@ -62,8 +64,9 @@ export default function Movie({MovieId}:{MovieId:number}) {
         movieTrailer(null ,{ tmdbId: moviedata.id })
         .then((url)=>{
           console.log("url is "+url);
-          const urlParams=new URLSearchParams(new URL(url||"").search);
-          console.log("urlParamsn"+urlParams);
+          setTimeout(()=>{
+            setTrailer(url||"")
+          },7000);
         })
         .catch((error)=> console.log(error));
 }
@@ -84,11 +87,14 @@ export default function Movie({MovieId}:{MovieId:number}) {
     backgroundSize: 'cover',
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path})`,
   }
-  return  moviedata?
+  return  !trailer ?(moviedata?
     <motion.div initial={{y:-1000}} animate={{y:0}} transition={{delay:0.5,duration:1}}
       style={backgroundStyle}
      className='w-[100%]  bgdrop h-[70%] text-[#fff]   movieshadow bg-gray-400'>
       <MovieDetail obj={moviedata}/>
-     </motion.div>:<p>loading</p>
+     </motion.div>:<p>loading</p>):
+     <>
+     <ReactPlayer url={trailer}  playing={true} />
+     </>
      
     }
