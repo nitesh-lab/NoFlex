@@ -6,7 +6,7 @@ export default function Header() {
 
 const [isPlay,setisPlay]=useState<boolean>(false)
   
-  const data={videoUrl:"",thumbnailUrl:"Home.jpg",title:"Nitesh",description:"lodo",id:""}
+  const data={videoUrl:"",thumbnailUrl:"Home.jpg",title:"Nitesh",description:"Semwal",id:""}
   
   return (
 

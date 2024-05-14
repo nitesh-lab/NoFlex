@@ -88,13 +88,12 @@ export default function Movie({MovieId}:{MovieId:number}) {
   },[MovieId])
   const backgroundStyle = {
     backgroundSize: 'cover',
-    //backgroundImage: `url(https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path})`,
   }
   return  moviedata?
     <motion.div initial={{y:-1000}} animate={{y:0}} transition={{delay:0.5,duration:1}}
       style={backgroundStyle}
      className='w-[100%] relative  bgdrop h-[70%] text-[#fff]   movieshadow bg-black'>
-      {trailer &&<div onClick={(e)=>e.stopPropagation()}><ReactPlayer controls={false}  playing={isPlaying}  ref={player}
+      {trailer &&<div onClick={(e)=>e.stopPropagation()}><ReactPlayer loop={true} controls={false}  playing={isPlaying}  ref={player}
        light={!(isPlaying) ?
         <img src={`https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path}`} 
         className='w-[100vw] h-[100%]' alt='Thumbnail' /> 
