@@ -1,61 +1,78 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowBigDownDash, PlayIcon, ShoppingBasketIcon } from 'lucide-react'
+import MovieDetail from './MovieDetail'
+import axios from 'axios'
 
-const  obj=  {
-title:"",
-name:"",
-vote_average:"",
-release_date:"",
-first_air_date:"",
-runtime:"",
-episode_run_time:"",
-number_of_episodes:"",
-number_of_seasons:"",
-overview:"",
-}
-export default function Movie() {
+// export type Movie_Data_Type=  {
+// title:string,
+// name:string,
+// vote_average:string,
+// release_date:string,
+// first_air_date:string,
+// runtime:string,
+// episode_run_time:string,
+// number_of_episodes:string,
+// number_of_seasons:string,
+// overview:string,
+// }
 
+
+export type MovieInfo = {
+  adult: boolean;
+  backdrop_path: string;
+  budget: number;
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: {
+      id: number;
+      name: string;
+  }[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  spoken_languages: {
+      english_name: string;
+      iso_639_1: string;
+      name: string;
+  }[];
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+};
+
+export default function Movie({MovieId}:{MovieId:number}) {
+
+  const [moviedata,setMovieData]=useState<MovieInfo>();
+  useEffect(()=>{
+    async function GetData() {
+      if(MovieId && MovieId!==-1){
+      const d=await axios.get(`https://api.themoviedb.org/3/movie/${MovieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`)
+    setMovieData(d.data)
+    }          
+    }
+    GetData();
+  },[MovieId])
   const backgroundStyle = {
     backgroundSize: 'cover',
-    backgroundImage: `url(https://image.tmdb.org/t/p/original/qsnXwGS7KBbX4JLqHvICngtR8qg.jpg&quot)`,
+    backgroundImage: `url(https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path})`,
   }
-  return (
+  return  moviedata?
     <motion.div initial={{y:-1000}} animate={{y:0}} transition={{delay:0.5,duration:1}}
       style={backgroundStyle}
      className='w-[100%]  bgdrop h-[70%] text-[#fff]   movieshadow bg-gray-400'>
-      <MovieDetail/>
-
-     </motion.div>
-  )
-}
-
-
-
-
-function MovieDetail(){
-  return (
-
-    <>
-    <div className='h-[100%] modalcontainer'>
-      <h1 className='text-[4rem]'>{"Nitesh"|| ""}</h1>
-      <p className='  pt-[1.6rem] text: 2rem;'>
-        <span className='text-[2rem[ text-yellow-500'>Rating: 20% </span>
-        Release date: {"20/1/2018"|| obj.first_air_date} Runtime:{"135"|| obj.episode_run_time}m
-      </p>
-
-      <p style={{color: "rgb(122, 122, 122)"}}  className='  pt-[2rem] text-[1rem] sm:text-[2rem] hyphens-auto'>{"njsnsjdns"||obj.overview}</p>
+      <MovieDetail obj={moviedata}/>
+     </motion.div>:<p>loading</p>
      
-      <div className=" bg-red-500 mt-[1rem] flex justify-center text-center p-[0.5rem] hover:bg-red-800 hover:cursor-pointer rounded-[40%] w-[3rem] sm:w-[5rem] sm:p-[1rem]">
-        <div>
-        <PlayIcon  />
-        </div>
-       
-      </div>
-      </div></>
-  )
-}
-
-
-
-
+    }

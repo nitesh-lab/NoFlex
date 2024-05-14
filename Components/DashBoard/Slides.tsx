@@ -15,7 +15,7 @@ export default function Slides({elem}:{elem:movie}) {
     const id:number=useSelector((s:IRootState)=>s.movie.isSelected)
 
     function handleClick(){
-        if(id!==elem.id){
+        if(id!==elem.id ){
         dispatch(toggle_Movie(elem.id));
         }
     }

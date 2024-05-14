@@ -64,13 +64,13 @@ export default function SwiperComp({bgColor,height,title,label}:{label:string,ti
 
   useEffect(()=>{
     async function GetMovies() {
+
       if(title){
-      const s:string=request[title]
-       
+      const s:string=request[title] 
       const d=await axiosInstance.get(s);
       console.log(d.data.results)
       setData(d.data.results);
-      }
+      
      setOptions({initial: 0,
       loop: true,
       mode: "free",
@@ -93,7 +93,7 @@ export default function SwiperComp({bgColor,height,title,label}:{label:string,ti
         setLoaded(true)
       },
     })
-      
+    }
     }
     GetMovies();
   },[title])
@@ -117,8 +117,10 @@ export default function SwiperComp({bgColor,height,title,label}:{label:string,ti
         }
         </div>
         
-        {loaded && instanceRef.current && (
+        {instanceRef.current && (
+          
           <>
+          
             <Arrow
               left
               onClick={(e: any) =>
@@ -151,6 +153,8 @@ function Arrow(props: {
 }) {
   const disabled = props.disabled ? " arrow--disabled" : ""
   return (
+    <>
+   
     <svg
       onClick={props.onClick}
       className={`arrow ${
@@ -166,5 +170,6 @@ function Arrow(props: {
         <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
       )}
     </svg>
+    </>
   )
 }
