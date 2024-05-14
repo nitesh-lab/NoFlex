@@ -1,5 +1,5 @@
-import Header from '@/Components/DashBoard/Header'
-import MovieList from '@/Components/DashBoard/MovieList'
+import Header from "../../../components/DashBoard/Header"
+import MovieList from '../../../components/DashBoard/MovieList'
 import Modal from '@/components/DashBoard/Modal'
 import React from 'react'
 

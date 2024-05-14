@@ -20,6 +20,7 @@
     "framer-motion": "^11.1.9",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.378.0",
+    "movie-trailer": "^3.2.2",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.17",
     "react": "^18",
