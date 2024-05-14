@@ -1,7 +1,7 @@
 
 
-import Bottom from "../../components/Home/Bottom";
-import NavBar from '../../components/Home/NavBar';
+import Bottom from '@/Components/Home/Bottom';
+import NavBar from '@/Components/Home/NavBar';
 
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';

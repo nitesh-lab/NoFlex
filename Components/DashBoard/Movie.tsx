@@ -5,19 +5,18 @@ import { motion } from 'framer-motion'
 import { ArrowBigDownDash, PlayIcon, ShoppingBasketIcon } from 'lucide-react'
 import MovieDetail from './MovieDetail'
 import axios from 'axios'
+import movieTrailer from 'movie-trailer'
 
-// export type Movie_Data_Type=  {
-// title:string,
-// name:string,
-// vote_average:string,
-// release_date:string,
-// first_air_date:string,
-// runtime:string,
-// episode_run_time:string,
-// number_of_episodes:string,
-// number_of_seasons:string,
-// overview:string,
-// }
+const opts = {
+  height: '450',
+  width: '95%',
+
+  playerVars: {
+    // https://developers.google.com/youtube/player_parameters
+    autoplay: 1,
+  },
+}
+
 
 
 export type MovieInfo = {
@@ -55,6 +54,18 @@ export type MovieInfo = {
 export default function Movie({MovieId}:{MovieId:number}) {
 
   const [moviedata,setMovieData]=useState<MovieInfo>();
+
+  useEffect(()=>{
+
+    async function getTrailer() {
+      if(moviedata &&  "title" in moviedata){
+        movieTrailer(movie.name || movie.title || 'Father of the Bride')
+      }
+    }
+
+    getTrailer()
+  },[])
+
   useEffect(()=>{
     async function GetData() {
       if(MovieId && MovieId!==-1){

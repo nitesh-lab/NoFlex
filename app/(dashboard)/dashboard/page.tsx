@@ -1,6 +1,7 @@
-import Header from "../../../components/DashBoard/Header"
-import MovieList from '../../../components/DashBoard/MovieList'
-import Modal from '@/components/DashBoard/Modal'
+
+import Header from '@/Components/DashBoard/Header'
+import Modal from '@/Components/DashBoard/Modal'
+import MovieList from '@/Components/DashBoard/MovieList'
 import React from 'react'
 
 export default function page() {
