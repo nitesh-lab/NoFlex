@@ -138,6 +138,35 @@ body {
   box-shadow: 0 1.5rem 4rem rgba(23, 24, 24, 0.15);
 }
 
-.modal__container{
-background: linear-gradient(90deg, #000 50%, transparent);
+.modalcontainer{
+  background: linear-gradient(90deg, #000 50%, transparent);
+    width: 70%;
+    padding-top: 3rem;
+    height: 100%;
+    padding-left: 1rem;
 }
+
+.modal{
+position: fixed;
+z-index: 500;
+width: 100%;
+top: 0;
+left: 0;
+color: #fff;
+height: 52rem;
+opacity: 0;
+box-shadow: 0 1.5rem 4rem rgba(#171818, 0.15);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+   

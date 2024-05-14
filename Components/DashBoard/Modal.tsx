@@ -18,9 +18,8 @@ export default function Modal() {
   return (
     showModal &&
     <>
-    <div className="fixed top-0 z-[1000] left-0 w-[100vw] h-[100vh]
-     bg-black bg-opacity-40 backdrop-blur-lg flex justify-center items-center">
- 
+    <div className=" fixed top-0 z-[1000] left-0 w-[100vw] h-[100vh]
+      bg-opacity-40 backdrop-blur-lg flex justify-center items-center">
     <Movie/>
     </div>     
     </>
