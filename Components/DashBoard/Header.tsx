@@ -33,8 +33,8 @@ export default function Header() {
   useEffect(() => {
     async function fetchData() {
       const [movieApiResponse, trailerUrl] = await Promise.all([
-        axios.get(`https://api.themoviedb.org/3/movie/157336?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
-        MovieTrailer('157336'),
+        axios.get(`https://api.themoviedb.org/3/movie/1011985?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+        MovieTrailer('1011985'),
       ]);
 
       setMovieData(movieApiResponse.data);
@@ -52,17 +52,15 @@ export default function Header() {
 
   return (
     <div className="text-black relative h-[56.25vh] sm:h-[56.25vh]">
-      {movieData && (
+      {movieData ? playVideo? (
         <YouTubePlayer
-          className="min-w-[100vw]"
           url={`https://youtube.com/watch?v=${trailerData?.key}`}
           playing={true}
           controls={false}
-          light={showlight && 
-          <img src={`https://image.tmdb.org/t/p/original/${movieData.backdrop_path}`}/>}
-        />
-      )
-      }
+          width='100vw'
+          height='100%'
+        />):  <img src={`https://image.tmdb.org/t/p/original/${movieData.backdrop_path}`}/>
+      :null}
 
       <div className="absolute top-[30%] mt:top-[40%] ml-4 md:ml-16">
         <p className="text-black font-extrabold text-3xl md:text-5xl h-full w-[50%] lg:text-6xl drop-shadow-xl">
