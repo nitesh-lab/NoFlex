@@ -62,6 +62,8 @@ export default function Movie({MovieId}:{MovieId:number}) {
   const [trailer,setTrailer]=useState<string>("");
   const player=useRef<ReactPlayer | null>(null);
    const [isPlaying,setPlaying]=useState<boolean>(false)
+   const [videoLoaded, setVideoLoaded] = useState(false);
+
 
   useEffect(()=>{
     async function getTrailer() {
@@ -95,15 +97,20 @@ export default function Movie({MovieId}:{MovieId:number}) {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path})`,
   }
 
+  
+  const onReady = () => {
+    console.log("called")
+    setVideoLoaded(true);
+  };
+
   return  (moviedata?
     <motion.div initial={{y:-1000}} animate={{y:0}} transition={{delay:0.5,duration:1}}
       style={backgroundStyle}
      className='w-[100%] relative   bgdrop h-[70%] text-[#fff]   movieshadow bg-black'>
       <div onClick={(e)=>e.stopPropagation()} className='h-[100%] w-[100vw]'>
       {trailer.length>0 && isPlaying ?
-    <YouTubePlayer className=' absolute z-[1]  h-[100%] w-[100%] '  
-      videoId={trailer}  opts={opts} />
-       
+    <YouTubePlayer className={`absolute z-[1]   h-[100%] w-[100%]  ${!videoLoaded ? "hidden":""} `}
+      videoId={trailer} onReady={onReady}   opts={opts} />
       :<img className='absolute z-[0]' src='' />}
       <MovieDetail obj={moviedata}/>
         </div>
