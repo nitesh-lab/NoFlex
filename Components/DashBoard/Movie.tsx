@@ -22,8 +22,6 @@ const opts = {
   },
 };
 
-
-
 export type MovieInfo = {
   adult: boolean;
   backdrop_path: string;
