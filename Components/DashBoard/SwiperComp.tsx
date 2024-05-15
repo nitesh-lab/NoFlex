@@ -68,7 +68,6 @@ export default function SwiperComp({bgColor,height,title,label}:{label:string,ti
       if(title){
       const s:string=request[title] 
       const d=await axiosInstance.get(s);
-      console.log(d.data.results)
       setData(d.data.results);
       
      setOptions({initial: 0,

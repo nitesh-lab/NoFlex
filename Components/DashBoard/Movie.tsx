@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
@@ -6,18 +7,20 @@ import { motion } from 'framer-motion'
 import { ArrowBigDownDash, PlayIcon, ShoppingBasketIcon } from 'lucide-react'
 import MovieDetail from './MovieDetail'
 import axios from 'axios'
-import movieTrailer from 'movie-trailer'
 import ReactPlayer from "react-player";
+import { MovieTrailer } from '@/lib/utils'
+import YouTubePlayer from "react-youtube";
+
 
 const opts = {
-  height: '450',
-  width: '95%',
-
+  height: '100%',
+  width: '100%',
   playerVars: {
     // https://developers.google.com/youtube/player_parameters
     autoplay: 1,
+    controls:0,
   },
-}
+};
 
 
 
@@ -63,13 +66,13 @@ export default function Movie({MovieId}:{MovieId:number}) {
   useEffect(()=>{
     async function getTrailer() {
       if(moviedata &&  "title" in moviedata){
-        movieTrailer(null ,{ tmdbId: moviedata.id })
+       MovieTrailer(moviedata.id.toString())
         .then((url)=>{
-          console.log("url is "+url);
+          console.log(url)
           setTimeout(()=>{
             setPlaying(true);
           },7000);
-          setTrailer(url||"")
+          setTrailer(url.key||"")
         })
         .catch((error)=> console.log(error));
 }
@@ -86,22 +89,24 @@ export default function Movie({MovieId}:{MovieId:number}) {
     }
     GetData();
   },[MovieId])
+
   const backgroundStyle = {
     backgroundSize: 'cover',
+    backgroundImage: `url(https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path})`,
   }
-  return  moviedata?
+
+  return  (moviedata?
     <motion.div initial={{y:-1000}} animate={{y:0}} transition={{delay:0.5,duration:1}}
       style={backgroundStyle}
-     className='w-[100%] relative  bgdrop h-[70%] text-[#fff]   movieshadow bg-black'>
-      {trailer &&<div onClick={(e)=>e.stopPropagation()}><ReactPlayer loop={true} controls={false}  playing={isPlaying}  ref={player}
-       light={!(isPlaying) ?
-        <img src={`https://image.tmdb.org/t/p/original/${moviedata?.backdrop_path}`} 
-        className='w-[100vw] h-[100%]' alt='Thumbnail' /> 
-       :false}
-      
-      className="absolute z-[10] h-[100%] min-w-[100vw]" url={trailer}></ReactPlayer></div>
-        
-        }
+     className='w-[100%] relative   bgdrop h-[70%] text-[#fff]   movieshadow bg-black'>
+      <div onClick={(e)=>e.stopPropagation()} className='h-[100%] w-[100vw]'>
+      {trailer.length>0 && isPlaying ?
+    <YouTubePlayer className=' absolute z-[1]  h-[100%] w-[100%] '  
+      videoId={trailer}  opts={opts} />
+       
+      :<img className='absolute z-[0]' src='' />}
       <MovieDetail obj={moviedata}/>
-     </motion.div>:<p>loading</p>
-    }
+        </div>
+    </motion.div>:<p>loading</p>)
+}
+    

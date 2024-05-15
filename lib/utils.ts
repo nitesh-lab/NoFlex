@@ -39,12 +39,10 @@ export function GenerateMetadata({
     }
   }
   
-
-  console.log(process.env)
   // TMDB API KEY
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
-console.log(API_KEY)
+
 
 console.log("line 48")
 
@@ -84,3 +82,59 @@ export const request = {
  export const axiosInstance=axios.create({
     baseURL: 'https://api.themoviedb.org/3',
   });
+
+interface Video_Types{
+
+    "videos":{
+    "results": [
+      {
+        "iso_639_1": string,
+        "iso_3166_1": string,
+        "name": string,
+        "key": string,
+        "site": string,
+        "size": number,
+        "type": string,
+        "official": boolean,
+        "published_at":string,
+        "id": string
+      },
+    ]
+  }
+    }
+
+
+    export async function  MovieTrailer(id:string):Promise<{
+      iso_639_1: string;
+      iso_3166_1: string;
+      name: string;
+      key: string;
+      site: string;
+      size: number;
+      type: string;
+      official: boolean;
+      published_at: string;
+      id: string}>{
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+}
+}
+
+const d=await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&append_to_response=videos`, options)
+  const res:Video_Types=await d.json();
+  console.log("dataa aaya")
+  console.log(res.videos.results)
+  let flag=-1
+  res.videos.results.map((e,idx)=>{
+    if(e.type==="Trailer")  flag=idx;
+  })
+  if(flag==-1){
+    res.videos.results.map((e,idx)=>{
+      if(e.type==="Teaser")  flag=idx;
+    }) 
+  }
+  return res.videos.results[flag]
+  }
