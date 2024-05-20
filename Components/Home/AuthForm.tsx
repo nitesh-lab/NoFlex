@@ -1,6 +1,5 @@
 "use client"
 
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -10,6 +9,8 @@ import { Button } from '../UI/button'
 import CustomInput from '../Common/CustomInput'
 import { signIn } from "next-auth/react"
 import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { IRootState } from '@/Store/store'
 
 export const AuthSchema=z.object({
     email:z.string().email().min(5,"Not Valid Email"),
@@ -17,11 +18,14 @@ export const AuthSchema=z.object({
 })
 
 export default function AuthForm() {
- 
+    
+    const email:string=useSelector((s:IRootState)=>s.login.email);
+
+
     const form=useForm<z.infer<typeof AuthSchema>>({
             resolver:zodResolver(AuthSchema),
             defaultValues:{
-                email:"",
+                email:email.length>0?email:"",
                 password:"",
             }
            })

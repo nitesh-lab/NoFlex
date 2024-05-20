@@ -1,13 +1,15 @@
 
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
 export type Login_type={
-    openSignIn:boolean
+    openSignIn:boolean,
+    email:string
 }
 
 const initialState:Login_type={
-    openSignIn:false
+    openSignIn:false,
+    email:"",
 }
 
 
@@ -17,10 +19,13 @@ const login_slice=createSlice({
     reducers:{
         "toggle_Login":(state)=>{
             state.openSignIn=!(state.openSignIn) 
+        },
+        "Email_Input":(state,action:PayloadAction<string>)=>{
+            state.email=action.payload;
         }
     }
 })
 
-export const {toggle_Login}=login_slice.actions
+export const {toggle_Login,Email_Input}=login_slice.actions
 
 export default login_slice.reducer ;
