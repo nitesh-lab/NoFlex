@@ -50,27 +50,20 @@ export default function Header() {
   }, []);
 
 
-  return (
-    <div className="text-black relative h-[56.25vh] sm:h-[56.25vh]">
+  return (<>
       {movieData ? playVideo? (
-        <YouTubePlayer
-          url={`https://youtube.com/watch?v=${trailerData?.key}`}
-          playing={true}
-          controls={false}
-          width='100vw'
-          height='100%'
-          className="border-1 border-red-500"
-        />):  <img src={`https://image.tmdb.org/t/p/original/${movieData.backdrop_path}`}/>
+
+  <div className="container max-h-[400px]" > 
+  <iframe className="responsive-iframe"  src={`https://www.youtube.com/embed/${trailerData?.key}?version=3&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;mute=0&amp;loop=1`} allowFullScreen={true} allow="autoplay; encrypted-media"></iframe>
+</div>
+       ):  <img src={`https://image.tmdb.org/t/p/original/${movieData.backdrop_path}`}/>
       :null}
 
-      <div className="absolute top-[30%] mt:top-[40%] ml-4 md:ml-16">
-        {/* <p className="text-black font-extrabold text-3xl md:text-5xl h-full w-[50%] lg:text-6xl drop-shadow-xl">
-          {movieData?.title}
-        </p> */}
+      {/* <div className="absolute xxl:top-[80%] mt:top-[40%] z-[1000] ml-4 md:ml-16">
         <p className="text-black font-bold text-[1 rem] md:text-[1.5rem] md:text-lg mt-[3rem] md:mt-[4rem] w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
-          {movieData?.tagline}
+          {movieData?.title}
         </p>
-      </div>
-    </div>
+      </div> */}
+   </>
   );
 }
